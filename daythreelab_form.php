@@ -2,7 +2,8 @@
    <body>    
         <?php
         // define variables and set to empty values
-        $name = $email = $gender = $course = $group = $details = $agree = "";
+        $name = $email = $gender = $group = $details = $agree = "";
+        $course =[];
         $nameErr = $emailErr = $genderErr = $agreeErr = "";
 
         if ( $_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,7 +32,7 @@
 
             $group = test_input($_POST["group"]);
             $details = test_input($_POST["details"]);
-            $course = test_input($_POST["course"]);
+            $course =$_POST["course"];
         }
 
         function test_input($data) {
@@ -41,6 +42,7 @@
         return $data;
         }
         
+        print_r($course);
         ?>
     <h2>Application Name AAST - BIS Class Registeration </h2>
       <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "POST">
@@ -73,7 +75,7 @@
             <tr>
                 <th>Select Courses  :</th>
                 <td>
-                    <Select name=course>
+                    <Select name="course[]" multiple=''>
                         <option value="php">PHP</option>
                         <option value="js">JavaScript</option>
                         <option value="html">HTML</option>
@@ -101,7 +103,11 @@
         echo "<br>";
         echo "Gender :".$gender;
         echo "<br>";
-        echo "Your Courses are :".$course;
+        
+        echo "Your Courses are :";
+        foreach($course as $c){
+          echo " $c ,";
+        }
     ?>
       
    </body>
